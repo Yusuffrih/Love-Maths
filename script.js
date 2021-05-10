@@ -12,6 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+    
+    document.getElementById('answer-box').addEventListener('keydown', function(event) {
+        if(event.key === 'Enter'){
+            checkAnswer();
+        }
+    })
+
     runGame('addition');
 });
 
@@ -33,6 +40,8 @@ function runGame(gameType) {
         displaySubtractQuestion(num1, num2); 
     } else if(gameType === 'multiply') {
         displayMultiplyQuestion(num1, num2);
+    } else if(gameType === 'division') {
+        displayDivisionQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type ${gameType}, aborting`;
@@ -65,6 +74,8 @@ function calculateCorrectAnswer(){
         return [operand1 - operand2, "subtract"];
     } else if(operator === "x") {
         return [operand1 * operand2, 'multiply'];// This is the multiplication game
+    } else if(operator === '/') {
+        return [operand1 / operand2, 'division']; // This is the division game
     } else {
         alert(`Unimplemented operator: ${operator}`);
         throw `Unimplemented operator ${operator}, aborting`;
@@ -103,6 +114,8 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById("operator").textContent = "x";
 }
 
-function displayDivisionQuestion(){
-
+function displayDivisionQuestion(operand1, operand2){
+    document.getElementById('operand1').textContent = operand1 * operand2 * 2;
+    document.getElementById("operand2").textContent = operand2;
+    document.getElementById("operator").textContent = "/";
 }
